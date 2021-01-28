@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+{{ if .Values.normalIssuer}}
+kind: Issuer
+{{else}}
+kind: ClusterIssuer
+{{end}}
+metadata:
+  name: {{ .Values.name }}
+{{ if .Values.normalIssuer }}
+  namespace: {{ .Release.Namespace }}
+{{end}}
+spec:
+  acme:
+{{ if .Values.prod}}
+    server: https://acme-v02.api.letsencrypt.org/directory
+{{else}}
+    server: https://acme-staging-v02.api.letsencrypt.org/directory    
+{{end}}
+    email: {{ .Values.email }}
+    privateKeySecretRef:
+      name: {{ .Values.name }}
+    solvers:
+    - selector: {}
+      http01:
+        ingress:
+          class: {{ .Values.class }}
