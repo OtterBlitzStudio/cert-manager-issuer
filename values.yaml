@@ -1,5 +1,5 @@
 normalIssuer: false
 prod: true
-email: ""
+email: 
 name: letsencrypt-production
 class: nginx

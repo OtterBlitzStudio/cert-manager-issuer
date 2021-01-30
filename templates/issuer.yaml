@@ -16,7 +16,7 @@ spec:
 {{else}}
     server: https://acme-staging-v02.api.letsencrypt.org/directory    
 {{end}}
-    email: {{ .Values.email }}
+    email: {{ required "Please provide .Values.email" .Values.email }}
     privateKeySecretRef:
       name: {{ .Values.name }}
     solvers:
